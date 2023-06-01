@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitt Dash</title>
+
+    <!-- Linking CSS File -->
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+
+    <!-- Font links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <form method = "post">
+    {% csrf_token %}
+    <!-- <i class="fa fa-car"></i> -->
+
+    <div id="container" class="container">
+        <div id="menu">
+            <!-- <h1>Menu Box</h1> -->
+            <div class="brand-logo">
+                <img src="{% static 'Logo.png' %}" alt="Logo">
+            </div>
+            <div class="menu-item">
+                <a href="#">About</a>
+                <a href="/home">Home</a>
+                <a href="/home/past_orders">Your Orders</a>
+                <!-- <a href="#">Reviews</a> -->
+                <a href="#">Help</a>
+            </div>
+        </div>
+        <div id="food-container">
+            <!-- <h1>Food Items Box</h1> -->
+            <div id="header">
+                <!-- <div class="add-box"> -->
+                    <i class="fa fa-map-marker your-address" id="add-address">{{ cust_add }}</i>
+                    <div class="util">
+                        {% csrf_token %}
+                        <input class="search-field" type="search" id = "search_inp" name = "search_inp" placeholder="Search..." >
+                        <button type="submit" name = "search_btn" style = "padding: 0;border: none;background: none;">
+                        <i class="fa fa-search"></i>
+                        </button>
+                        <button type="submit" name = "cart_btn" style = "padding: 0;border: none;background: none;">
+                        <i class="fa fa-cart-plus" id="cart-plus"> {{tot_cnt}} Items</i>
+                        </button>
+                    </div>
+                <!-- </div> -->
+            </div>
+
+        <div id="food-items" class="food-items">
+
+        </div>
+        {% if pending %}
+        <div id="cart-page" class="cart-toggle">
+            <p id="cart-title">Pending Orders</p>
+            <!-- <p id="m-total-amount">Total Amount: $100</p> -->
+            {% for order in pending %}
+            <br>
+            <p>Total Amount: {{ order.tot_amount }}</p>
+            <p>Restaurant Name: {{ order.rest_name }}</p>
+            <br>
+            <table>
+                <thead>
+                    <td>Item</td>
+                    <td>Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Total Price</td>
+                </thead>
+                <tbody id="table-body">
+                    {% for item in order.item_list %}
+                    <tr>
+                        <td>
+                            <img src="{% static 'mmos.jpg' %}" alt="img">
+                        </td>
+                        <td> {{ item.food_name }} </td>
+                        <td>{{ item.count }} </td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.tot_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if delivered %}
+        <div id="cart-page" class="cart-toggle">
+            <p id="cart-title">Delivered Orders</p>
+            <!-- <p id="m-total-amount">Total Amount: $100</p> -->
+            {% for order in delivered %}
+            <br>
+            <p>Total Amount: {{ order.tot_amount }}</p>
+            {% if order.del_name %}
+            <p>Delivered By: {{ order.del_name }}</p>
+            {% endif %}
+            <p>Restaurant Name: {{ order.rest_name }}</p>
+            <br>
+            <table>
+                <thead>
+                    <td>Item</td>
+                    <td>Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Total Price</td>
+                </thead>
+                <tbody id="table-body">
+                    {% for item in order.item_list %}
+                    <tr>
+                        <td>
+                            <img src="{% static 'food.png' %}" alt="img">
+                        </td>
+                        <td>{{ item.food_name }}</td>
+                        <td>{{ item.count }} </td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.tot_price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+        <div id="cart">
+            <!-- <h1>Cart Box</h1> -->
+
+            <div class="taste-header">
+                <div class="user">
+                    <button id = "logout_btn" name = "logout_btn" style = "padding: 0;border: none;background: none;"><i class="fa fa-user-circle">Logout</i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </form>
+    <!-- javascript -->
+    <!-- <script src="/Users/vish/Desktop/DBMSProject/index.js" type="module"></script> -->
+</body>
+</html>

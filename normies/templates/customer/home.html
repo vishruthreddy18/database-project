@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitt Dash</title>
+
+    <!-- Linking CSS File -->
+    <link rel="stylesheet" href="{% static 'main.css' %}?1">
+
+    <!-- Font links -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <form method = "post">
+    <div id="container" class="container">
+        <div id="menu">
+            <!-- <h1>Menu Box</h1> -->
+            <div class="brand-logo">
+                <img src="{% static 'Logo.png' %}" alt="Logo">
+            </div>
+            <div class="menu-item">
+                <a href="#">About</a>
+                <a href="/home">Home</a>
+                <a href="/home/past_orders">Your Orders</a>
+                <!-- <a href="#">Reviews</a> -->
+            </div>
+        </div>
+        <div id="food-container">
+            <!-- <h1>Food Items Box</h1> -->
+            <div id="header">
+                <!-- <div class="add-box"> -->
+                    <i class="fa fa-map-marker your-address" id="add-address">{{ cust_add }}</i>
+                    <div class="util">
+                        {% csrf_token %}
+                        <input class="search-field" type="search" id = "search_inp" name = "search_inp" placeholder="Search..." >
+                        <button type="submit" name = "search_btn" style = "padding: 0;border: none;background: none;">
+                        <i class="fa fa-search"></i>
+                        </button>
+                        <button type="submit" name = "cart_btn" style = "padding: 0;border: none;background: none;">
+                        <i class="fa fa-cart-plus" id="cart-plus"> {{cart_tot_items}} Items</i>
+                        </button>
+                    </div>
+                <!-- </div> -->
+            </div>
+        <div id="food-items" class="food-items">
+            {% for key, value in menu.items %}
+            <div id="biryani">
+                <p id="category-name">{{ value.rest_name }}
+                    <i class="fa fa-star" id="rating-1">{{ value.review }}</i>
+                </p>
+                {% for item in value.items %}
+                <button type="submit" name = "food_btn_{{ value.rest_id }}_{{ item.food_id }}" style = "padding: 0;border: none;background: none;">
+                <div id="item-card">
+                    <div id="card-top">
+                        {% if item.in_cart %}
+                        <i class="fa fa-minus add-to-cart"></i>
+                        {% else %}
+                        <i class="fa fa-plus add-to-cart"></i>
+                        {% endif %}
+                        <!-- <i class="fa fa-star" id="rating-1">{{ value.review }}</i> -->
+                    </div>
+                    <!-- <p>{{ value.rest_id }}/{{ item.img_id}}.png</p> -->
+                    <img src="{% static 'food.png' %}" alt="img">
+                    <!-- <img src="{% static value.rest_id|add:'/'|add:item.img_id|add:'.png' %}" alt="Food"> -->
+                    <p id="item-name">{{ item.food_name }}</p>
+                    <p id="item-price">{{ item.cost }}$</p>
+                </div>
+                </button>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+        <div id="cart">
+            <!-- <h1>Cart Box</h1> -->
+
+            <div class="taste-header">
+                <div class="user">
+                    <button id = "logout_btn" name = "logout_btn" style = "padding: 0;border: none;background: none;"><i class="fa fa-user-circle">Logout</i></button>
+                </div>
+            </div>
+
+            <div id="category-list">
+                <p class="item-menu">Restaurant List</p>
+                {% for order in restaurant %}
+                <div class="list-card">
+                    <img src="{% static 'food.png' %}" alt="list">
+                    <a href="" class="list-name">{{ order.rest_name }}</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

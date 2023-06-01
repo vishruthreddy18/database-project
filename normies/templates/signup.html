@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+button {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+button:hover {
+  opacity:1.5;
+}
+
+.container {
+  padding: 16px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+ 
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+.center {
+    justify-content: center;
+    align-items: center;
+    border: 3px solid auto; 
+  }
+
+.btncenter {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 200px;
+margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 300px) {
+    .signupbtn {
+        width: 100%;
+  }
+}
+body  {
+    background-image: url("jay-wennington-N_Y88TWmGwA-unsplash.jpg");
+    background-size: cover;
+}
+</style>
+<body style = "background-image:url('/Users/gautams/Projects/db_normies/normies/static/Login.jpg')">
+<h2 style="text-align: center; color:white">Well Well Well, Looks like someone's Hungry!</h2>
+<div style="text-align: center">
+<button onclick="document.getElementById('signupID').style.display='block'" style="width:150px; background-color:rgb(0, 157, 255)">Sign Up</button>
+<button onclick="document.getElementById('loginID').style.display='block'" style="width:150px; background-color:red">Login</button>
+</div>
+<div id="signupID" class="modal" style="padding: 0px 250px; background-image: url('/Users/gautams/Projects/db_normies/normies/static/Login.jpg'); background-repeat:repeat-x; background-size: 1500px 1500px">
+  <span onclick="document.getElementById('signupID').style.display='none'" class="close" title="Close Modal">&times;</span>
+  <form class="modal-content" action="/action_page.php">
+    <div class="container">
+      <h1 style="text-align: center">Sign Up</h1>
+      <hr>
+      <label for="fname"><b>First Name</b></label>
+      <input type="text" placeholder="Enter your First Name" name="fname" required>
+
+      <label for="lname"><b>Last Name</b></label>
+      <input type="text" placeholder="Enter your Last Name" name="lname" required>
+
+      <label for="address"><b>Address</b></label>
+      <input type="text" placeholder="Enter your Home Address" name="address" required>
+
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter your Email Address" name="email" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Create a Password" name="psw" required>
+
+      <div class="clearfix">
+        <button type="submit" class="signupbtn" style="background-color: crimson">Sign Up</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="loginID" class="modal" style="padding: 0px 250px">
+    <span onclick="document.getElementById('loginID').style.display='none'" class="close" title="Close Modal">&times;</span>
+    <form class="modal-content" action="/action_page.php">
+      <div class="container">
+        <h1 style="text-align: center">Login</h1>
+        <hr>
+  
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter your Email Address" name="email" required>
+  
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter the Password" name="psw" required>
+  
+        <div class="clearfix">
+          <button type="submit" class="signupbtn" style="background-color:red">Login</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
